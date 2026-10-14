@@ -59,15 +59,17 @@ export const projects: Project[] = [
   {
     title: "YellowB",
     kind: "Full-Stack AI App",
-    description: "Final Year Research Project. Built an AI Mobile Application to Classify Leaf Diseases with Transfer Learning & XAI",
-    tags: ["Deep Learning Techniques","Python", "Flask"],
+    description:
+      "Final Year Research Project. Built an AI Mobile Application to Classify Leaf Diseases with Transfer Learning & XAI",
+    tags: ["Deep Learning Techniques", "Python", "Flask"],
     github: "https://github.com/dinun0427/YellowB",
     live: "",
   },
-    {
+  {
     title: "Family Clinic",
     kind: "Full-Stack App",
-    description: "Created a Full-Stack Hybrid Application with MEAN stack and IONIC to connect Patiets and Doctors Online",
+    description:
+      "Created a Full-Stack Hybrid Application with MEAN stack and IONIC to connect Patiets and Doctors Online",
     tags: ["MEAN Stack"],
     github: "https://github.com/dinun0427/FamilyClinic",
     live: "",
@@ -79,11 +81,12 @@ export const experience: Job[] = [
     role: "Trinee Software Engineer",
     company: "Family Clinic Pvt Ltd.",
     period: "2022 - 2023",
-    summary: "Played a Crucial role in Implementing the Mobile App, Using MEAN Stack and Ionic Framework to ensure robust functionality and User-friendly experiences. Developed RESTful APIs, for Communication between Client-side and Server-side systems, Which enhanced our application's Responsiveness and Performance.",
+    summary:
+      "Played a Crucial role in Implementing the Mobile App, Using MEAN Stack and Ionic Framework to ensure robust functionality and User-friendly experiences. Developed RESTful APIs, for Communication between Client-side and Server-side systems, Which enhanced our application's Responsiveness and Performance.",
     highlights: ["Helped the Team and the Company to Build their Product"],
     tech: ["MEAN Stack", "IONIC Framework"],
   },
-    {
+  {
     role: "Software Engineer",
     company: "GEODD",
     period: "2024 - 2026",
@@ -91,7 +94,7 @@ export const experience: Job[] = [
     highlights: [""],
     tech: [""],
   },
-      {
+  {
     role: "AI/ML Engineer",
     company: "GEODD",
     period: "2026 - Present",
@@ -105,7 +108,8 @@ export const nowItems: NowItem[] = [
   {
     label: "Learning",
     title: "AI & Machine Learning",
-    detail: "Project-based Practice and gaining Experience to become the Unstoppable.",
+    detail:
+      "Project-based Practice and gaining Experience to become the Unstoppable.",
   },
   {
     label: "Building",
