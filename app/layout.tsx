@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Dinun Ranasinghe | Software Engineer",
-  description: "Portfolio of a software engineer building with TypeScript and Next.js.",
+  description:
+    "Portfolio of a software engineer building with TypeScript and Next.js.",
 };
 
 export default function RootLayout({
