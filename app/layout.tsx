@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name | Software Engineer",
+  title: "Dinun Ranasinghe | Software Engineer",
   description: "Portfolio of a software engineer building with TypeScript and Next.js.",
 };
 
