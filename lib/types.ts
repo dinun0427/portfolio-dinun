@@ -48,6 +48,7 @@ export type Profile = {
   name: string;
   initials: string;
   role: string;
+  rotatingRoles: string[];
   location: string;
   status: string;
   email: string;

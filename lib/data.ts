@@ -11,6 +11,7 @@ export const profile: Profile = {
   name: "Dinun Ranasinghe",
   initials: "DR",
   role: "Software Engineer",
+  rotatingRoles: ["AI/ML Engineer", "Full-stack Developer"],
   location: "Colombo, Sri Lanka",
   status: "Open to work",
   email: "ranasinghedinun@gmail.com",
