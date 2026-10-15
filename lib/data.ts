@@ -24,8 +24,22 @@ export const profile: Profile = {
 
 export const skillGroups: SkillGroup[] = [
   {
+    title: "Programming Skills",
+    blurb: "EAT. SLEEP. CODE. REPEAT...",
+    skills: [
+      { name: "Python", level: "advanced" },
+      { name: "Algorithms & Data Structures", level: "proficient" },
+      { name: "JavaScript", level: "proficient" },
+      { name: "TypeScript", level: "proficient" },
+      { name: "Java", level: "proficient" },
+      { name: "Object-Oriented Programming", level: "proficient" },
+      { name: "C++", level: "learning" },
+      
+    ],
+  },
+    {
     title: "Full-Stack",
-    blurb: "Versatile Full-Stack Software Engineer",
+    blurb: "Versatile Full-Stack Developer",
     skills: [
       { name: "T3 Stack", level: "advanced" },
       { name: "MEAN Stack", level: "proficient" },
@@ -34,10 +48,8 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "AI/ML",
-    blurb: "Currently Levelling Up.",
+    blurb: "Solo Levelling...",
     skills: [
-      { name: "Python", level: "proficient" },
-      { name: "Algorithms & Data Structures", level: "proficient" },
       { name: "PyTorch & TensorFlow/Keras", level: "proficient" },
       { name: "NumPy, Pandas, & Scikit-learn", level: "proficient" },
       { name: "Linux & Bash", level: "learning" },
@@ -51,7 +63,7 @@ export const projects: Project[] = [
   {
     title: "Portfolio",
     kind: "Full-Stack App",
-    description: "Just did it for fun and to repolish my skills",
+    description: "Just did it for fun to Re-polish and Upgrade my skills",
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/dinun0427/portfolio-dinun",
     live: "",
@@ -67,10 +79,10 @@ export const projects: Project[] = [
   },
   {
     title: "Family Clinic",
-    kind: "Full-Stack App",
+    kind: "Full-stack App",
     description:
       "Created a Full-Stack Hybrid Application with MEAN stack and IONIC to connect Patiets and Doctors Online",
-    tags: ["MEAN Stack"],
+    tags: ["MEAN Stack", "Ionic"],
     github: "https://github.com/dinun0427/FamilyClinic",
     live: "",
   },
@@ -81,26 +93,25 @@ export const experience: Job[] = [
     role: "Trinee Software Engineer",
     company: "Family Clinic Pvt Ltd.",
     period: "2022 - 2023",
-    summary:
-      "Played a Crucial role in Implementing the Mobile App, Using MEAN Stack and Ionic Framework to ensure robust functionality and User-friendly experiences. Developed RESTful APIs, for Communication between Client-side and Server-side systems, Which enhanced our application's Responsiveness and Performance.",
+    summary: "Played a Crucial role in Implementing the Mobile App, Using MEAN Stack and Ionic Framework to ensure robust functionality and User-friendly experiences. Developed RESTful APIs, for Communication between Client-side and Server-side systems, Which enhanced our application's Responsiveness and Performance.",
     highlights: ["Helped the Team and the Company to Build their Product"],
-    tech: ["MEAN Stack", "IONIC Framework"],
+    tech: ["MEAN stack", "Ionic"],
   },
   {
-    role: "Software Engineer",
+    role: "ML Engineer",
     company: "GEODD",
     period: "2024 - 2026",
-    summary: "",
-    highlights: [""],
-    tech: [""],
+    summary: "First Job as a Career Professional. Selecting Algorithms, Tuning Hyperparameters, Running Experiments, and Validating Model Performance. Gained foundational experience with modern stacks like LLMs and GenAI tools.",
+    highlights: ["Built, Deployed, Tested, and Operated ML and AI Solutions."],
+    tech: ["Python", "PyTorch", "TensorFlow/Keras", "LLMs", "GenAI"],
   },
   {
     role: "AI/ML Engineer",
     company: "GEODD",
     period: "2026 - Present",
-    summary: "",
-    highlights: [""],
-    tech: [""],
+    summary: "Got Promoted. Focused on High-Performance, Reliable, and Advanced AI-driven Solutions for a Global Client Base",
+    highlights: ["Selected, Tuned, and Experimented with ML algorithms and Deployed Scalable AI Solutions."],
+    tech: ["Python", "PyTorch", "TensorFlow/Keras", "LLMs", "GenAI", "AWS", "Docker"],
   },
 ];
 
@@ -108,13 +119,12 @@ export const nowItems: NowItem[] = [
   {
     label: "Learning",
     title: "AI & Machine Learning",
-    detail:
-      "Project-based Practice and gaining Experience to become the Unstoppable.",
+    detail: "Project-based Practice and gaining Experience to become the Expert.",
   },
   {
     label: "Building",
     title: "The Portfolio",
-    detail: "Re polissing my skills in Full-stack",
+    detail: "Containerizing my Skills, Orchestrating my Projects, and Deploying my Career into Production",
   },
 ];
 
@@ -124,6 +134,12 @@ export const socials: SocialLink[] = [
     handle: "github.com/dinun0427",
     href: "https://github.com/dinun0427",
     icon: "github",
+  },
+  {
+    label: "LinkedIn",
+    handle: "linkedin.com/dinun-ranasinghe",
+    href: "https://www.linkedin.com/in/dinun-ranasinghe/",
+    icon: "linkedin",
   },
   {
     label: "Email",
