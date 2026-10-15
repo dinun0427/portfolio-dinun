@@ -7,7 +7,10 @@ type SpotlightCardProps = {
   className?: string;
 };
 
-export function SpotlightCard({ children, className = "" }: SpotlightCardProps) {
+export function SpotlightCard({
+  children,
+  className = "",
+}: SpotlightCardProps) {
   function handleMove(e: MouseEvent<HTMLDivElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty("--mx", `${e.clientX - rect.left}px`);
