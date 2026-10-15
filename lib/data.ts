@@ -122,7 +122,15 @@ export const experience: Job[] = [
     highlights: [
       "Selected, tuned and experimented with ML algorithms and deployed scalable AI solutions.",
     ],
-    tech: ["Python", "PyTorch", "TensorFlow/Keras", "LLMs", "GenAI", "AWS", "Docker"],
+    tech: [
+      "Python",
+      "PyTorch",
+      "TensorFlow/Keras",
+      "LLMs",
+      "GenAI",
+      "AWS",
+      "Docker",
+    ],
   },
   {
     role: "ML Engineer",

@@ -23,7 +23,7 @@ const config: Config = {
         blink: "blink 1s step-end infinite",
         shimmer: "shimmer 6s linear infinite",
         pulseRing: "pulseRing 1.8s ease-out infinite",
-      },      
+      },
       fontFamily: {
         sans: [
           "var(--font-geist-sans)",
