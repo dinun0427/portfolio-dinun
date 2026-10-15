@@ -11,3 +11,31 @@ html {
   background: rgba(139, 92, 246, 0.45);
   color: white;
 }
+
+@layer components {
+  .glass {
+    @apply border border-white/10 bg-white/[0.03] backdrop-blur-xl;
+  }
+
+  .gradient-text {
+    @apply animate-shimmer bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      90deg,
+      #8b5cf6,
+      #22d3ee,
+      #f472b6,
+      #8b5cf6
+    );
+    background-size: 200% auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
