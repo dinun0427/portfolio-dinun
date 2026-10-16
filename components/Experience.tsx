@@ -11,7 +11,10 @@ export function Experience() {
       />
       <ol className="relative border-l border-white/10 pl-8">
         {experience.map((job, i) => (
-          <li key={`${job.company}-${job.role}`} className="relative pb-12 last:pb-0">
+          <li
+            key={`${job.company}-${job.role}`}
+            className="relative pb-12 last:pb-0"
+          >
             <span
               aria-hidden
               className="absolute -left-[41px] top-1.5 h-3 w-3 rounded-full border-2 border-accent-violet bg-ink-950"
