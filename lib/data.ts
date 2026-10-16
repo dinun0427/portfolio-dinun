@@ -29,27 +29,27 @@ export const skillGroups: SkillGroup[] = [
     blurb: "Eat. Sleep. Code. Repeat.",
     skills: [
       { name: "Python", level: "advanced" },
-      { name: "Algorithms & data structures", level: "proficient" },
+      { name: "Algorithms & Data Structures", level: "proficient" },
       { name: "Java", level: "proficient" },
-      { name: "Object-oriented programming", level: "proficient" },
+      { name: "Object-Oriented Programming", level: "proficient" },
       { name: "JavaScript", level: "proficient" },
       { name: "C++", level: "learning" },
     ],
   },
   {
     title: "AI/ML",
-    blurb: "Solo levelling...",
+    blurb: "Solo Levelling...",
     skills: [
       { name: "PyTorch & TensorFlow/Keras", level: "proficient" },
-      { name: "NumPy, pandas & scikit-learn", level: "proficient" },
+      { name: "NumPy, Pandas & Scikit-learn", level: "proficient" },
       { name: "Linux & Bash", level: "learning" },
       { name: "MLOps", level: "learning" },
       { name: "LLM APIs", level: "learning" },
     ],
   },
   {
-    title: "Front-end",
-    blurb: "Versatile front-end developer",
+    title: "Front-End",
+    blurb: "Versatile Front-End Developer",
     skills: [
       { name: "Next.js", level: "proficient" },
       { name: "TypeScript", level: "proficient" },
@@ -60,12 +60,13 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    title: "Back-end",
-    blurb: "Versatile back-end developer",
+    title: "Back-End",
+    blurb: "Versatile Back-End Developer",
     skills: [
       { name: "Next.js", level: "proficient" },
       { name: "Node.js", level: "proficient" },
       { name: "Express.js", level: "proficient" },
+      { name: "RESTful API", level: "proficient" },
       { name: "MongoDB", level: "proficient" },
       { name: "tRPC", level: "proficient" },
       { name: "Prisma", level: "learning" },
@@ -74,7 +75,7 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    title: "Cloud and tooling",
+    title: "Cloud and Tooling",
     blurb: "Learning DevOps",
     skills: [
       { name: "Docker", level: "learning" },
@@ -89,14 +90,14 @@ export const skillGroups: SkillGroup[] = [
 export const projects: Project[] = [
   {
     title: "Portfolio",
-    kind: "Web portfolio",
+    kind: "Web Portfolio",
     description: "Just did it for fun, to re-polish and upgrade my skills.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/dinun0427/portfolio-dinun",
   },
   {
     title: "YellowB",
-    kind: "Full-stack AI app",
+    kind: "Full-Stack AI App",
     description:
       "Final year research project. Built an AI mobile application to classify leaf diseases with transfer learning and XAI.",
     tags: ["Deep learning", "Python", "Flask"],
@@ -104,7 +105,7 @@ export const projects: Project[] = [
   },
   {
     title: "Family Clinic",
-    kind: "Full-stack app",
+    kind: "Hybrid Mobile Application",
     description:
       "Created a full-stack hybrid application with the MEAN stack and Ionic to connect patients and doctors online.",
     tags: ["MEAN stack", "Ionic"],
