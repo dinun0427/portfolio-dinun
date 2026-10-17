@@ -39,3 +39,7 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
