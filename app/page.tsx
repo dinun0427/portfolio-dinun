@@ -6,11 +6,15 @@ import { Hero } from "@/components/Hero";
 import { Now } from "@/components/Now";
 import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
+import { Background } from "@/components/Background";
+import { Navbar } from "@/components/Navbar";
 
 export default function Home() {
   return (
     <>
-      <main>
+      <Background />
+      <Navbar />
+      <main className="relative z-10">
         <Hero />
         <About />
         <Skills />
@@ -19,7 +23,9 @@ export default function Home() {
         <Now />
         <Contact />
       </main>
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </>
   );
 }
