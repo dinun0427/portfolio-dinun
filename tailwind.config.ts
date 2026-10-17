@@ -18,11 +18,16 @@ const config: Config = {
           "0%": { transform: "scale(0.8)", opacity: "0.8" },
           "100%": { transform: "scale(2.2)", opacity: "0" },
         },
+        float: {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "50%": { transform: "translate(30px, -40px)" },
+        },
       },
       animation: {
         blink: "blink 1s step-end infinite",
         shimmer: "shimmer 6s linear infinite",
         pulseRing: "pulseRing 1.8s ease-out infinite",
+        float: "float 18s ease-in-out infinite",
       },
       fontFamily: {
         sans: [
