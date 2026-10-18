@@ -1,0 +1,26 @@
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { Skills } from "@/components/Skills";
+import { skillGroups } from "@/lib/data";
+
+describe("Skills", () => {
+  it("renders every group and skill from the data file", () => {
+    render(<Skills />);
+    for (const group of skillGroups) {
+      expect(
+        screen.getByRole("heading", { name: group.title }),
+      ).toBeInTheDocument();
+      for (const skill of group.skills) {
+        expect(screen.getAllByText(skill.name).length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("exposes each skill level to screen readers", () => {
+    render(<Skills />);
+    const advanced = skillGroups
+      .flatMap((g) => g.skills)
+      .filter((s) => s.level === "advanced").length;
+    expect(screen.getAllByText("advanced")).toHaveLength(advanced);
+  });
+});
