@@ -134,7 +134,7 @@ export function Hero() {
               </a>
             ))}
           </div>
-          <span className="flex items-center gap-1.5 text-sm text-zinc-500">
+          <span className="flex items-center gap-1.5 text-sm text-zinc-400">
             <MapPinIcon className="h-4 w-4" />
             {profile.location}
           </span>

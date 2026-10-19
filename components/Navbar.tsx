@@ -70,7 +70,7 @@ export function Navbar() {
       >
         <a href="#" className="font-mono font-semibold text-white">
           {profile.initials}
-          <span className="text-accent-violet">.</span>
+          <span className="text-violet-400">.</span>
         </a>
 
         <ul className="hidden gap-1 md:flex">

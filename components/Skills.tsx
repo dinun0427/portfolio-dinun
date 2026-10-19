@@ -42,7 +42,7 @@ export function Skills() {
               <h3 className="text-lg font-semibold text-white">
                 {group.title}
               </h3>
-              <p className="mt-1 text-sm text-zinc-500">{group.blurb}</p>
+              <p className="mt-1 text-sm text-zinc-400">{group.blurb}</p>
               <ul className="mt-5 flex flex-wrap gap-2">
                 {group.skills.map((skill) => (
                   <li
