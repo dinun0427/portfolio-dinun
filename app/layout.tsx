@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { profile } from "@/lib/data";
+import { siteUrl } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,9 +15,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dinun Ranasinghe | Software Engineer",
-  description:
-    "Portfolio of a software engineer building with TypeScript and Next.js.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: `${profile.name} | ${profile.role}`,
+    template: `%s | ${profile.name}`,
+  },
+  description: profile.tagline,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: `${profile.name} | ${profile.role}`,
+    description: profile.tagline,
+    url: "/",
+    siteName: profile.name,
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${profile.name} | ${profile.role}`,
+    description: profile.tagline,
+  },
 };
 
 export default function RootLayout({
