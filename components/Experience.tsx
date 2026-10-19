@@ -25,14 +25,14 @@ export function Experience() {
               </p>
               <h3 className="mt-2 text-xl font-semibold text-white">
                 {job.role}{" "}
-                <span className="font-normal text-zinc-500">
+                <span className="font-normal text-zinc-400">
                   · {job.company}
                 </span>
               </h3>
               <p className="mt-3 leading-relaxed text-zinc-400">
                 {job.summary}
               </p>
-              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-zinc-400 marker:text-accent-violet">
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-zinc-400 marker:text-violet-400">
                 {job.highlights.map((highlight) => (
                   <li key={highlight}>{highlight}</li>
                 ))}

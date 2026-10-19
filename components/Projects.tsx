@@ -18,7 +18,7 @@ export function Projects() {
             <Tilt className="h-full">
               <SpotlightCard className="h-full p-6">
                 <div className="flex h-full flex-col">
-                  <p className="font-mono text-xs uppercase tracking-widest text-accent-violet">
+                  <p className="font-mono text-xs uppercase tracking-widest text-violet-400">
                     {project.kind}
                   </p>
                   <h3 className="mt-3 text-xl font-semibold text-white">

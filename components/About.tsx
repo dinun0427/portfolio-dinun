@@ -24,14 +24,14 @@ export function About() {
             <dl className="space-y-4">
               {facts.map((fact) => (
                 <div key={fact.label}>
-                  <dt className="font-mono text-xs uppercase tracking-widest text-zinc-500">
+                  <dt className="font-mono text-xs uppercase tracking-widest text-zinc-400">
                     {fact.label}
                   </dt>
                   <dd className="mt-1 text-white">{fact.value}</dd>
                 </div>
               ))}
               <div>
-                <dt className="font-mono text-xs uppercase tracking-widest text-zinc-500">
+                <dt className="font-mono text-xs uppercase tracking-widest text-zinc-400">
                   Email
                 </dt>
                 <dd className="mt-1">
