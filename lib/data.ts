@@ -94,7 +94,7 @@ export const projects: Project[] = [
     description: "Just did it for fun, to re-polish and upgrade my skills.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/dinun0427/portfolio-dinun",
-    live: "https://portfolio-dinun-cvjb.vercel.app/",
+    live: "https://portfolio-dinun.vercel.app/",
   },
   {
     title: "YellowB",
