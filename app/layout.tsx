@@ -43,7 +43,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+    >
       <body
         suppressHydrationWarning
         className="bg-ink-950 font-sans text-zinc-300 antialiased"
