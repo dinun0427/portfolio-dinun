@@ -18,8 +18,8 @@ export const profile: Profile = {
   tagline:
     "I turn real-world problems into deployed, intelligent systems and build fast, polished web products.",
   about: [
-    "I'm Dinun, an AI/ML engineer. I design, train and deploy machine learning and deep learning models, build end-to-end pipelines and integrate model APIs into the applications that clients and the platform rely on.",
-    "Right now I'm sharpening my skills in full-stack web development, and in MLOps, deployment and infrastructure.",
+    "As a Full-Stack AI Engineer, I bridge the gap between complex AI and user-facing products. I design, train, and deploy Machine Learning and Deep Learning models while building the complete application ecosystem—including Frontend interfaces, Backend logic, APIs, and scalable production pipelines.",
+    "Currently deepening my expertise in Full-stack web architectures and high-scale MLOps. I am actively refining my approach to automated deployment, cloud infrastructure, and robust model monitoring to ensure the AI systems I build are highly scalable, secure, and production-ready.",
   ],
 };
 
