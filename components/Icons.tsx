@@ -97,3 +97,20 @@ export const ArrowDownIcon = (props: IconProps) => (
     <path d="m6 13 6 6 6-6" />
   </svg>
 );
+
+export const DownloadIcon = (props: IconProps) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M12 4v11" />
+    <path d="m7 11 5 5 5-5" />
+    <path d="M5 20h14" />
+  </svg>
+);

@@ -9,6 +9,7 @@ import {
   ArrowUpRightIcon,
   MapPinIcon,
   SocialIcon,
+  DownloadIcon,
 } from "./Icons";
 
 function useTypewriter(words: string[], speed = 70, pause = 1600) {
@@ -120,6 +121,14 @@ export function Hero() {
               className="glass inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10"
             >
               Contact me
+            </a>
+            <a
+              href="/Dinun-Ranasinghe-CV.pdf"
+              download
+              className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10"
+            >
+              <DownloadIcon className="h-4 w-4" />
+              CV
             </a>
           </motion.div>
 
