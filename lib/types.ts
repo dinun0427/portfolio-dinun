@@ -7,11 +7,10 @@ export type SocialLink = {
   icon: IconName;
 };
 
-export type SkillLevel = "learning" | "proficient" | "advanced";
-
 export type Skill = {
   name: string;
-  level: SkillLevel;
+  /** Confidence from 0 to 100, shown as a progress bar. */
+  level: number;
 };
 
 export type SkillGroup = {

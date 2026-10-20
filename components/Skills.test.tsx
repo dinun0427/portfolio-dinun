@@ -16,11 +16,15 @@ describe("Skills", () => {
     }
   });
 
-  it("exposes each skill level to screen readers", () => {
+  it("exposes each skill level as a progress bar with its percentage", () => {
     render(<Skills />);
-    const advanced = skillGroups
-      .flatMap((g) => g.skills)
-      .filter((s) => s.level === "advanced").length;
-    expect(screen.getAllByText("advanced")).toHaveLength(advanced);
+    const skills = skillGroups.flatMap((group) => group.skills);
+    const bars = screen.getAllByRole("progressbar");
+
+    expect(bars).toHaveLength(skills.length);
+    skills.forEach((skill, i) => {
+      expect(bars[i]).toHaveAttribute("aria-valuenow", String(skill.level));
+      expect(bars[i]).toHaveAccessibleName(`${skill.name} proficiency`);
+    });
   });
 });
