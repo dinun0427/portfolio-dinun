@@ -22,6 +22,16 @@ describe("skillGroups", () => {
     }
   });
 
+  it("every skill level is a whole number from 0 to 100", () => {
+    for (const group of skillGroups) {
+      for (const skill of group.skills) {
+        expect(Number.isInteger(skill.level)).toBe(true);
+        expect(skill.level).toBeGreaterThanOrEqual(0);
+        expect(skill.level).toBeLessThanOrEqual(100);
+      }
+    }
+  });
+
   it("has no duplicate skill names inside a group", () => {
     for (const group of skillGroups) {
       const names = group.skills.map((s) => s.name);

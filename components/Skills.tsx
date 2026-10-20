@@ -1,29 +1,40 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { skillGroups } from "@/lib/data";
-import type { SkillLevel } from "@/lib/types";
 
-const levelDots: Record<SkillLevel, number> = {
-  learning: 1,
-  proficient: 2,
-  advanced: 3,
-};
+function SkillBar({ name, level }: { name: string; level: number }) {
+  const reduce = useReducedMotion();
 
-function LevelDots({ level }: { level: SkillLevel }) {
-  const filled = levelDots[level];
   return (
-    <span className="flex gap-0.5">
-      {[1, 2, 3].map((n) => (
-        <span
-          key={n}
-          aria-hidden
-          className={`h-1.5 w-1.5 rounded-full ${
-            n <= filled ? "bg-accent-cyan" : "bg-white/15"
-          }`}
+    <li>
+      <div className="mb-1.5 flex items-center justify-between text-sm">
+        <span className="text-zinc-200">{name}</span>
+        <span className="font-mono text-xs text-zinc-400">{level}%</span>
+      </div>
+      <div
+        role="progressbar"
+        aria-label={`${name} proficiency`}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={level}
+        className="h-1.5 overflow-hidden rounded-full bg-white/10"
+      >
+        <motion.div
+          initial={{ width: reduce ? `${level}%` : 0 }}
+          whileInView={{ width: `${level}%` }}
+          viewport={{ once: true }}
+          transition={{
+            duration: reduce ? 0 : 1.1,
+            delay: 0.15,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="h-full rounded-full bg-gradient-to-r from-accent-violet via-accent-cyan to-accent-pink"
         />
-      ))}
-      <span className="sr-only">{level}</span>
-    </span>
+      </div>
+    </li>
   );
 }
 
@@ -33,25 +44,23 @@ export function Skills() {
       <SectionHeading
         eyebrow="Skills"
         title="What I work with"
-        description="Dots show my confidence: one is learning, two is proficient, three is advanced."
+        description="The bars show how confident I am with each skill, from still learning to advanced."
       />
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((group, i) => (
-          <Reveal key={group.title} delay={(i % 3) * 0.08}>
+          <Reveal key={group.title} delay={(i % 3) * 0.08} className="h-full">
             <SpotlightCard className="h-full p-6">
               <h3 className="text-lg font-semibold text-white">
                 {group.title}
               </h3>
               <p className="mt-1 text-sm text-zinc-400">{group.blurb}</p>
-              <ul className="mt-5 flex flex-wrap gap-2">
+              <ul className="mt-6 space-y-4">
                 {group.skills.map((skill) => (
-                  <li
+                  <SkillBar
                     key={skill.name}
-                    className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-zinc-200"
-                  >
-                    {skill.name}
-                    <LevelDots level={skill.level} />
-                  </li>
+                    name={skill.name}
+                    level={skill.level}
+                  />
                 ))}
               </ul>
             </SpotlightCard>
