@@ -81,3 +81,19 @@ export function SocialIcon({ name, ...props }: { name: IconName } & IconProps) {
       return <MailIcon {...props} />;
   }
 }
+
+export const ArrowDownIcon = (props: IconProps) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M12 5v14" />
+    <path d="m6 13 6 6 6-6" />
+  </svg>
+);
