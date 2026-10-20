@@ -18,7 +18,7 @@ export const profile: Profile = {
   tagline:
     "I turn real-world problems into deployed, intelligent systems and build fast, polished web products.",
   about: [
-    "As a Full-Stack AI Engineer, I bridge the gap between complex AI and user-facing products. I design, train, and deploy Machine Learning and Deep Learning models while building the complete application ecosystem—including Frontend interfaces, Backend logic, APIs, and scalable production pipelines.",
+    "As a Full-Stack AI Engineer, I bridge the gap between complex AI and user-facing products. I Design, Train, and Deploy Machine Learning and Deep Learning models while building the complete application ecosystem—including Frontend interfaces, Backend logic, APIs, and scalable production pipelines.",
     "Currently deepening my expertise in Full-stack web architectures and high-scale MLOps. I am actively refining my approach to automated deployment, cloud infrastructure, and robust model monitoring to ensure the AI systems I build are highly scalable, secure, and production-ready.",
   ],
 };
