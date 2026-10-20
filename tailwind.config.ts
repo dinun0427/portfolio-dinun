@@ -22,12 +22,17 @@ const config: Config = {
           "0%, 100%": { transform: "translate(0, 0)" },
           "50%": { transform: "translate(30px, -40px)" },
         },
+        bob: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-16px)" },
+        },
       },
       animation: {
         blink: "blink 1s step-end infinite",
         shimmer: "shimmer 6s linear infinite",
         pulseRing: "pulseRing 1.8s ease-out infinite",
         float: "float 18s ease-in-out infinite",
+        bob: "bob 6s ease-in-out infinite",
       },
       fontFamily: {
         sans: [
