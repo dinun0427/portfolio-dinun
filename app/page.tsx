@@ -12,6 +12,7 @@ import { profile, socials } from "@/lib/data";
 import { siteUrl } from "@/lib/site";
 import { SignatureIntro } from "@/components/SignatureIntro";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { TechMarquee } from "@/components/TechMarquee";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -45,6 +46,7 @@ export default function Home() {
       <Navbar />
       <main id="main" className="relative z-10">
         <Hero />
+        <TechMarquee />
         <About />
         <Skills />
         <Projects />

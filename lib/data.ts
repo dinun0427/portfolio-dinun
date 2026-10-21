@@ -189,3 +189,35 @@ export const socials: SocialLink[] = [
     icon: "mail",
   },
 ];
+
+export const techRows: string[][] = [
+  [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "Node.js",
+    "Express.js",
+    "Angular",
+    "JavaScript",
+    "SCSS",
+    "tRPC",
+    "Prisma",
+    "NextAuth.js",
+  ],
+  [
+    "Python",
+    "PyTorch",
+    "TensorFlow",
+    "Keras",
+    "scikit-learn",
+    "Pandas",
+    "NumPy",
+    "Java",
+    "MongoDB",
+    "PostgreSQL",
+    "Docker",
+    "AWS",
+    "Git",
+  ],
+];
