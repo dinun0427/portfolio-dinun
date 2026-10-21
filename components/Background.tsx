@@ -1,3 +1,5 @@
+import { CursorGlow } from "@/components/CursorGlow";
+
 export function Background() {
   const grid =
     "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)";
@@ -20,6 +22,7 @@ export function Background() {
           WebkitMaskImage: mask,
         }}
       />
+      <CursorGlow />
     </div>
   );
 }
