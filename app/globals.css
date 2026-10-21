@@ -48,3 +48,29 @@ section[id] {
   outline: 2px solid #22d3ee;
   outline-offset: 3px;
 }
+
+/* signature intro: each stroke is "drawn" by animating its dash offset */
+.sig-stroke {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sig-draw var(--sig-duration) linear var(--sig-delay) both;
+}
+
+@keyframes sig-draw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  0.1% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* returning visitors (same session) and reduced-motion users never see it */
+html[data-intro="skip"] [data-signature-intro] {
+  display: none;
+}

@@ -10,6 +10,7 @@ import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
 import { profile, socials } from "@/lib/data";
 import { siteUrl } from "@/lib/site";
+import { SignatureIntro } from "@/components/SignatureIntro";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -25,6 +26,7 @@ const jsonLd = {
 export default function Home() {
   return (
     <>
+      <SignatureIntro />
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-accent-violet focus:px-4 focus:py-2 focus:text-white"

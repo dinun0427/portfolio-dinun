@@ -23,7 +23,6 @@ export function CursorGlow() {
   const background = useMotionTemplate`radial-gradient(520px circle at ${smoothX}px ${smoothY}px, rgba(139,92,246,0.16), rgba(34,211,238,0.06) 40%, transparent 70%)`;
 
   useEffect(() => {
-    if (reduce) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
     const onMove = (event: PointerEvent) => {
@@ -41,7 +40,7 @@ export function CursorGlow() {
     <motion.div
       aria-hidden
       data-testid="cursor-glow"
-      className="absolute inset-0"
+      className="absolute inset-0 motion-reduce:hidden"
       style={{ background }}
     />
   );

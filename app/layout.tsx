@@ -37,6 +37,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Runs before the page paints, so returning visitors never see a flash of the intro.
+const introGuard = `try{if(sessionStorage.getItem("intro-seen")||matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.dataset.intro="skip"}}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: {
@@ -44,10 +47,17 @@ export default function RootLayout({
 }) {
   return (
     <html
+      suppressHydrationWarning
       lang="en"
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: introGuard }} />
+        <noscript>
+          <style>{`[data-signature-intro]{display:none}`}</style>
+        </noscript>
+      </head>
       <body
         suppressHydrationWarning
         className="bg-ink-950 font-sans text-zinc-300 antialiased"
