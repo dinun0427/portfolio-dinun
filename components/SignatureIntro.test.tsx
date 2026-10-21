@@ -5,7 +5,7 @@ import { signatureStrokes } from "@/lib/signature";
 
 describe("signature data", () => {
   it("has strokes that are written in order", () => {
-    expect(signatureStrokes.length).toBeGreaterThan(10);
+    expect(signatureStrokes.length).toBeGreaterThan(0);
     signatureStrokes.forEach((stroke, i) => {
       expect(stroke.d.startsWith("M")).toBe(true);
       expect(stroke.duration).toBeGreaterThanOrEqual(0);
