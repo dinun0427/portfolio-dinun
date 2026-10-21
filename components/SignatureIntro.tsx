@@ -9,8 +9,8 @@ import {
 } from "@/lib/signature";
 
 const STORAGE_KEY = "intro-seen";
-const START_DELAY = 0.3; // seconds before the pen touches the paper
-const HOLD = 0.5; // seconds the finished signature stays on screen
+const START_DELAY = 0.2; // seconds before the pen touches the paper
+const HOLD = 0.4; // seconds the finished signature stays on screen
 const FADE = 0.7; // seconds for the overlay to fade away
 
 type Phase = "writing" | "leaving" | "done";
@@ -68,7 +68,7 @@ export function SignatureIntro() {
         strokeWidth={5}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-[min(88vw,760px)] drop-shadow-[0_0_8px_rgba(255,255,255,0.35)]"
+        className="w-[min(52vw,380px)] drop-shadow-[0_0_8px_rgba(255,255,255,0.35)]"
       >
         {signatureStrokes.map((stroke) => (
           <path
