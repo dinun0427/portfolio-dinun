@@ -18,8 +18,8 @@ export function CursorGlow() {
   const reduce = useReducedMotion();
   const x = useMotionValue(-400);
   const y = useMotionValue(-400);
-  const smoothX = useSpring(x, { stiffness: 120, damping: 22, mass: 0.6 });
-  const smoothY = useSpring(y, { stiffness: 120, damping: 22, mass: 0.6 });
+  const smoothX = useSpring(x, { stiffness: 500, damping: 40, mass: 0.3 });
+  const smoothY = useSpring(y, { stiffness: 500, damping: 40, mass: 0.3 });
 
   const background = useMotionTemplate`radial-gradient(520px circle at ${smoothX}px ${smoothY}px, rgba(139,92,246,0.16), rgba(34,211,238,0.06) 40%, transparent 70%)`;
 
