@@ -11,7 +11,8 @@ import {
 
 /**
  * A soft light that follows the mouse across the whole page.
- * Fine pointers only (no touch), and off for reduced motion.
+ * Fine pointers only (no touch). For reduced motion the listener is never
+ * attached and CSS hides the layer, so server and client render the same HTML.
  */
 export function CursorGlow() {
   const reduce = useReducedMotion();
@@ -23,6 +24,7 @@ export function CursorGlow() {
   const background = useMotionTemplate`radial-gradient(520px circle at ${smoothX}px ${smoothY}px, rgba(139,92,246,0.16), rgba(34,211,238,0.06) 40%, transparent 70%)`;
 
   useEffect(() => {
+    if (reduce) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
 
     const onMove = (event: PointerEvent) => {
@@ -33,8 +35,6 @@ export function CursorGlow() {
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => window.removeEventListener("pointermove", onMove);
   }, [reduce, x, y]);
-
-  if (reduce) return null;
 
   return (
     <motion.div
