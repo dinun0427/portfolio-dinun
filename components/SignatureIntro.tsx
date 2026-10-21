@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
 import {
   SIGNATURE_DURATION,
+  SIGNATURE_STROKE_WIDTH,
   SIGNATURE_VIEWBOX,
   signatureStrokes,
 } from "@/lib/signature";
@@ -61,14 +62,14 @@ export function SignatureIntro() {
     >
       <svg
         role="img"
-        aria-label="Dinun Ranasinghe's signature, being written"
+        aria-label="Dinun's signature, being written"
         viewBox={SIGNATURE_VIEWBOX}
         fill="none"
         stroke="white"
-        strokeWidth={5}
+        strokeWidth={SIGNATURE_STROKE_WIDTH}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="w-[min(52vw,380px)] drop-shadow-[0_0_8px_rgba(255,255,255,0.35)]"
+        className="max-h-[60vh] w-[min(52vw,380px)] drop-shadow-[0_0_8px_rgba(255,255,255,0.35)]"
       >
         {signatureStrokes.map((stroke) => (
           <path
