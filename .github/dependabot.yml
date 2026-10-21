@@ -17,7 +17,7 @@ updates:
       # Tailwind 4 is a migration (CSS-first config, new PostCSS plugin),
       # so I plan it as its own PR instead of taking it from a bot.
       - dependency-name: "tailwindcss"
-        # # update-types: ["version-update:semver-major"]
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
