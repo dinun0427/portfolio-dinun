@@ -1,13 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { experience } from "@/lib/data";
 
 export function Experience() {
-  const reduce = useReducedMotion();
-
   return (
     <section id="experience" className="mx-auto max-w-6xl px-6 py-24">
       <SectionHeading
@@ -20,11 +18,11 @@ export function Experience() {
         {/* the timeline line draws itself as it scrolls into view */}
         <motion.div
           aria-hidden
-          initial={reduce ? false : { scaleY: 0 }}
+          initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.4, ease: "easeOut" }}
-          className="absolute bottom-0 left-[11px] top-2 w-px origin-top bg-gradient-to-b from-accent-violet via-accent-cyan/60 to-transparent md:left-1/2"
+          className="absolute bottom-0 left-[11px] top-2 w-px origin-top bg-gradient-to-b from-accent-violet via-accent-cyan/60 to-transparent motion-reduce:!transform-none md:left-1/2"
         />
 
         <ol className="space-y-12">
