@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-// the rest of the suite runs with reduced motion (see the intro step);
+// the rest of the suite runs with reduced motion (see playwright.config.ts);
 // the glow is switched off in that mode, so this spec opts back in
 test.use({ reducedMotion: "no-preference" });
 
