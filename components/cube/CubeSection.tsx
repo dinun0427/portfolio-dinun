@@ -2,9 +2,15 @@
 
 import { useInView } from "framer-motion";
 import dynamic from "next/dynamic";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { SectionHeading } from "@/components/Reveal";
-import { applyMoves, createCube, scramble } from "@/lib/cube";
+import {
+  applyMove,
+  applyMoves,
+  createCube,
+  scramble,
+  type Move,
+} from "@/lib/cube";
 
 // three.js is only downloaded when the section is about to be seen
 const CubeScene = dynamic(() => import("@/components/cube/CubeScene"), {
@@ -24,6 +30,11 @@ export function CubeSection() {
   const near = useInView(stage, { once: true, margin: "300px 0px" });
   const [state, setState] = useState(createCube);
 
+  const handleMove = useCallback(
+    (move: Move) => setState((s) => applyMove(s, move)),
+    [],
+  );
+
   return (
     <section id="playground" className="mx-auto max-w-6xl px-6 py-24">
       <SectionHeading
@@ -38,8 +49,13 @@ export function CubeSection() {
         aria-label="3D Rubik's cube"
         className="h-[420px] overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] md:h-[560px]"
       >
-        {near && <CubeScene state={state} />}
+        {near && <CubeScene state={state} onMove={handleMove} />}
       </div>
+
+      <p className="mt-4 text-center text-sm text-zinc-500">
+        Drag the background or a centre piece to rotate the cube. Drag a corner
+        or edge piece to turn its layer.
+      </p>
 
       <div className="mt-6 flex justify-center gap-3">
         <button

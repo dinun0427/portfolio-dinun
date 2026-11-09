@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { CubeSection } from "@/components/cube/CubeSection";
 
+// the real 3D scene needs WebGL, which jsdom doesn't have
 vi.mock("next/dynamic", () => ({ default: () => () => null }));
 
 describe("CubeSection", () => {
