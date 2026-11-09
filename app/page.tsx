@@ -10,7 +10,6 @@ import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
 import { profile, socials } from "@/lib/data";
 import { siteUrl } from "@/lib/site";
-import { SignatureIntro } from "@/components/SignatureIntro";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { TechMarquee } from "@/components/TechMarquee";
 
@@ -28,7 +27,6 @@ const jsonLd = {
 export default function Home() {
   return (
     <>
-      <SignatureIntro />
       <SmoothScroll />
       <a
         href="#main"
