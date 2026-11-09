@@ -26,6 +26,7 @@ export function Tilt({ children, max = 8, className }: TiltProps) {
   const rotateX = useTransform(sy, [0, 1], [max, -max]);
 
   function handleMove(e: MouseEvent<HTMLDivElement>) {
+    if (reduce) return;
     const rect = e.currentTarget.getBoundingClientRect();
     x.set((e.clientX - rect.left) / rect.width);
     y.set((e.clientY - rect.top) / rect.height);
@@ -34,10 +35,6 @@ export function Tilt({ children, max = 8, className }: TiltProps) {
   function reset() {
     x.set(0.5);
     y.set(0.5);
-  }
-
-  if (reduce) {
-    return <div className={className}>{children}</div>;
   }
 
   return (

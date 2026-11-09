@@ -1,13 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import type { CSSProperties } from "react";
 import { Reveal, SectionHeading } from "@/components/Reveal";
 import { SpotlightCard } from "@/components/SpotlightCard";
 import { skillGroups } from "@/lib/data";
 
 function SkillBar({ name, level }: { name: string; level: number }) {
-  const reduce = useReducedMotion();
-
   return (
     <li>
       <div className="mb-1.5 flex items-center justify-between text-sm">
@@ -20,18 +19,15 @@ function SkillBar({ name, level }: { name: string; level: number }) {
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={level}
+        style={{ "--level": `${level}%` } as CSSProperties}
         className="h-1.5 overflow-hidden rounded-full bg-white/10"
       >
         <motion.div
-          initial={{ width: reduce ? `${level}%` : 0 }}
+          initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
           viewport={{ once: true }}
-          transition={{
-            duration: reduce ? 0 : 1.1,
-            delay: 0.15,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="h-full rounded-full bg-gradient-to-r from-accent-violet via-accent-cyan to-accent-pink"
+          transition={{ duration: 1.1, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="h-full rounded-full bg-gradient-to-r from-accent-violet via-accent-cyan to-accent-pink motion-reduce:!w-[var(--level)]"
         />
       </div>
     </li>
