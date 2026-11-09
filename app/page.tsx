@@ -13,6 +13,7 @@ import { siteUrl } from "@/lib/site";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { TechMarquee } from "@/components/TechMarquee";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { CubeSection } from "@/components/cube/CubeSection";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -49,6 +50,7 @@ export default function Home() {
         <TechMarquee />
         <About />
         <Skills />
+        <CubeSection />
         <Projects />
         <Experience />
         <Now />
