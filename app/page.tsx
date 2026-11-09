@@ -12,6 +12,7 @@ import { profile, socials } from "@/lib/data";
 import { siteUrl } from "@/lib/site";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { TechMarquee } from "@/components/TechMarquee";
+import { ScrollProgress } from "@/components/ScrollProgress";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -28,6 +29,7 @@ export default function Home() {
   return (
     <>
       <SmoothScroll />
+      <ScrollProgress />
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-accent-violet focus:px-4 focus:py-2 focus:text-white"

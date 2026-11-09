@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 /**
  * Smooth, eased scrolling for mouse wheels and trackpads.
@@ -11,7 +12,14 @@ export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const lenis = new Lenis({ autoRaf: true, lerp: 0.1 });
+    const lenis = new Lenis({ lerp: 0.1 });
+
+    // One clock for everything: GSAP's ticker drives Lenis, and every Lenis
+    // scroll tells ScrollTrigger, so scroll-linked animations stay in sync.
+    const onTick = (time: number) => lenis.raf(time * 1000);
+    lenis.on("scroll", () => ScrollTrigger.update());
+    gsap.ticker.add(onTick);
+    gsap.ticker.lagSmoothing(0);
 
     // Same-page links (#about, #contact...) glide instead of jumping.
     // Lenis respects each section's scroll-margin-top, so the fixed navbar
@@ -43,6 +51,8 @@ export function SmoothScroll() {
     document.addEventListener("click", onClick);
     return () => {
       document.removeEventListener("click", onClick);
+      gsap.ticker.remove(onTick);
+      gsap.ticker.lagSmoothing(500, 33); // GSAP's default
       lenis.destroy();
     };
   }, []);
