@@ -1,5 +1,8 @@
 import type { Config } from "tailwindcss";
 
+// colours come from the palette in app/globals.css (so one place changes everything)
+const token = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
   content: [
     "./app/**/*.{ts,tsx}",
@@ -49,17 +52,30 @@ const config: Config = {
         ],
       },
       colors: {
+        // the page and its surfaces
         ink: {
-          950: "#05060a",
-          900: "#0a0b12",
-          800: "#11131d",
-          700: "#1a1d2b",
+          950: token("forest"),
+          900: token("forest-deep"),
+          800: token("forest-soft"),
+          700: token("forest-lift"),
         },
+        // the accent colours used for labels, gradients and glows
         accent: {
-          violet: "#8b5cf6",
-          cyan: "#22d3ee",
-          pink: "#f472b6",
+          violet: token("sage"),
+          cyan: token("sage-light"),
+          pink: token("mist"),
         },
+        // existing class names (text-white, text-zinc-400...) now read the palette
+        white: token("ivory"),
+        zinc: {
+          200: token("cream"),
+          300: token("mist"),
+          400: token("muted"),
+          500: token("faint"),
+        },
+        violet: { 400: token("sage-light"), 600: token("sage") },
+        emerald: { 300: token("mist"), 400: token("sage-light") },
+        sky: { 300: token("cream") },
       },
     },
   },

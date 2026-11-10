@@ -21,7 +21,7 @@ export function CursorGlow() {
   const smoothX = useSpring(x, { stiffness: 500, damping: 40, mass: 0.3 });
   const smoothY = useSpring(y, { stiffness: 500, damping: 40, mass: 0.3 });
 
-  const background = useMotionTemplate`radial-gradient(520px circle at ${smoothX}px ${smoothY}px, rgba(139,92,246,0.16), rgba(34,211,238,0.06) 40%, transparent 70%)`;
+  const background = useMotionTemplate`radial-gradient(520px circle at ${smoothX}px ${smoothY}px, rgb(var(--sage-light) / 0.14), rgb(var(--mist) / 0.05) 40%, transparent 70%)`;
 
   useEffect(() => {
     if (reduce) return;

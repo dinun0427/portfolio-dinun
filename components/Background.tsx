@@ -2,7 +2,7 @@ import { CursorGlow } from "@/components/CursorGlow";
 
 export function Background() {
   const grid =
-    "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)";
+    "linear-gradient(to right, rgb(var(--graphite) / 0.22) 1px, transparent 1px), linear-gradient(to bottom, rgb(var(--graphite) / 0.22) 1px, transparent 1px)";
   const mask = "radial-gradient(ellipse at center, black 30%, transparent 75%)";
 
   return (
