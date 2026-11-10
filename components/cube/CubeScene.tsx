@@ -3,6 +3,7 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useReducedMotion } from "framer-motion";
 import {
+  useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -26,6 +27,7 @@ import {
   movesForTurns,
   pickTangent,
   quarterTurnsFor,
+  type Script,
 } from "@/lib/cube-drag";
 import { CUBIE_SIZE, stickersFor } from "@/lib/cube-view";
 import { gsap } from "@/lib/gsap";
@@ -161,29 +163,69 @@ function CubieMesh({
 
 function Cube({
   state,
+  script,
   onMove,
+  onSettled,
   reduce,
 }: {
   state: CubeState;
+  script: Script | null;
   onMove: (move: Move) => void;
+  onSettled: () => void;
   reduce: boolean;
 }) {
   const group = useRef<Group>(null);
   const turn = useRef<Turn | null>(null);
   const view = useRef<View>({ yaw: -0.6, pitch: 0.45 });
   const idle = useRef(true); // slow spin until the visitor first touches it
-  const busy = useRef(false); // a layer is snapping into place
+  const busy = useRef(false); // a layer is turning or snapping into place
   const pendingClear = useRef(false);
   const stateRef = useRef(state);
   const onMoveRef = useRef(onMove);
+  const onSettledRef = useRef(onSettled);
   const reduceRef = useRef(reduce);
+  // moves waiting to be played by Scramble, Solve or the keyboard
+  const queue = useRef<Move[]>([]);
+  const queueSeconds = useRef(0.15);
+  const scripted = useRef(false);
+  const lastScript = useRef<number | null>(null);
 
   const get = useThree((s) => s.get);
   const invalidate = useThree((s) => s.invalidate);
 
+  // plays the next queued move: the layer turns by itself, then the move is committed
+  const playNext = useCallback(() => {
+    if (busy.current) return;
+    const move = queue.current.shift();
+    if (!move) return;
+    busy.current = true;
+    const t: Turn = { axis: move.axis, layer: move.layer, angle: 0 };
+    turn.current = t;
+
+    const commit = () => {
+      // keep the turn on screen until the new state has rendered
+      pendingClear.current = true;
+      onMoveRef.current(move);
+    };
+
+    if (reduceRef.current) {
+      t.angle = move.dir * QUARTER;
+      commit();
+      return;
+    }
+    gsap.to(t, {
+      angle: move.dir * QUARTER,
+      duration: queueSeconds.current,
+      ease: "power2.inOut",
+      onUpdate: invalidate,
+      onComplete: commit,
+    });
+  }, [invalidate]);
+
   useLayoutEffect(() => {
     stateRef.current = state;
     onMoveRef.current = onMove;
+    onSettledRef.current = onSettled;
     reduceRef.current = reduce;
     // the new state is on screen, so the temporary turn angle can go
     if (pendingClear.current) {
@@ -191,12 +233,33 @@ function Cube({
       turn.current = null;
       busy.current = false;
       invalidate();
+      // a script has played its last move
+      if (queue.current.length === 0 && scripted.current) {
+        scripted.current = false;
+        onSettledRef.current();
+      }
     }
-  }, [state, onMove, reduce, invalidate]);
+  }, [state, onMove, onSettled, reduce, invalidate]);
+
+  // a new script from the page: queue its moves and start playing
+  useEffect(() => {
+    if (!script || lastScript.current === script.id) return;
+    lastScript.current = script.id;
+    if (script.moves.length === 0) {
+      onSettledRef.current();
+      return;
+    }
+    queueSeconds.current = script.seconds;
+    scripted.current = true;
+    queue.current.push(...script.moves);
+    playNext();
+  }, [script, playNext]);
 
   useFrame((_, delta) => {
     if (idle.current && !reduceRef.current) view.current.yaw += delta * 0.3;
     group.current?.rotation.set(view.current.pitch, view.current.yaw, 0);
+    // carries on with the queue, and resumes it after a drag finishes
+    if (!busy.current && queue.current.length > 0) playNext();
   });
 
   useEffect(() => {
@@ -431,10 +494,17 @@ function Cube({
 
 export default function CubeScene({
   state,
+  script,
+  active,
   onMove,
+  onSettled,
 }: {
   state: CubeState;
+  script: Script | null;
+  /** false while scrolled out of view: drawing stops to save battery */
+  active: boolean;
   onMove: (move: Move) => void;
+  onSettled: () => void;
 }) {
   const reduce = Boolean(useReducedMotion());
   // this file only ever runs in the browser, so reading the DOM here is safe
@@ -454,14 +524,20 @@ export default function CubeScene({
   return (
     <Canvas
       camera={{ position: [0, 0, 9.5], fov: 38 }}
-      dpr={[1, 2]}
-      frameloop={reduce ? "demand" : "always"}
+      dpr={[1, 1.75]}
+      frameloop={!active ? "never" : reduce ? "demand" : "always"}
     >
       <ambientLight intensity={0.9} />
       <directionalLight position={[5, 8, 6]} intensity={1.6} />
       <pointLight position={[-6, -3, -4]} intensity={30} color="#8b5cf6" />
       <pointLight position={[6, 3, 4]} intensity={20} color="#22d3ee" />
-      <Cube state={state} onMove={onMove} reduce={reduce} />
+      <Cube
+        state={state}
+        script={script}
+        onMove={onMove}
+        onSettled={onSettled}
+        reduce={reduce}
+      />
     </Canvas>
   );
 }

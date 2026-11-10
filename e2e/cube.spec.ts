@@ -45,3 +45,23 @@ test("dragging the cube does not break the page", async ({ page }) => {
   await page.waitForTimeout(600);
   expect(errors).toEqual([]);
 });
+
+test("scramble then solve brings the cube back", async ({ page }) => {
+  await page.goto("/");
+  await page.locator("#playground").scrollIntoViewIfNeeded();
+  await expect(
+    page.locator('#playground canvas, [data-testid="cube-fallback"]').first(),
+  ).toBeVisible({ timeout: 20_000 });
+  test.skip(
+    (await page.locator("#playground canvas").count()) === 0,
+    "no WebGL here",
+  );
+
+  await page.getByRole("button", { name: "Scramble" }).click();
+  const solve = page.getByRole("button", { name: "Solve" });
+  await expect(solve).toBeEnabled({ timeout: 15_000 });
+  await solve.click();
+  await expect(page.getByText("Solved. Nice!")).toBeVisible({
+    timeout: 15_000,
+  });
+});

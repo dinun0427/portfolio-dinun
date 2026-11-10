@@ -88,3 +88,6 @@ export function movesForTurns(axis: Axis, layer: Layer, turns: number): Move[] {
   const dir: Dir = turns > 0 ? 1 : -1;
   return Array.from({ length: Math.abs(turns) }, () => ({ axis, layer, dir }));
 }
+
+/** Moves to play one after another, animated. A new id means a new script. */
+export type Script = { id: number; moves: Move[]; seconds: number };
