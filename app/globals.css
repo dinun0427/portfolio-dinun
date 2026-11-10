@@ -3,35 +3,18 @@
 @tailwind utilities;
 
 /*
- * THE PALETTE. Change a colour here and the whole site follows.
- * Values are "R G B" (no commas) so Tailwind can add transparency.
+ * Colours come from the active theme: CSS variables named --t-*, written
+ * for every theme by lib/themes.ts (see themeCss) and switched by setting
+ * data-theme on <html>. Edit or add themes in lib/themes.ts, not here.
  */
-:root {
-  /* your six colours */
-  --forest: 22 42 44; /* #162A2C  page background */
-  --graphite: 104 104 103; /* #686867  lines and grid */
-  --sage: 94 108 88; /* #5E6C58  fills, gradients, buttons */
-  --mist: 214 224 226; /* #D6E0E2  body text, soft highlights */
-  --cream: 244 239 230; /* #F4EFE6  strong text */
-  --ivory: 254 252 246; /* #FEFCF6  headings, brightest text */
-
-  /* helpers made from them, for places the originals are too dark to read */
-  --forest-deep: 15 31 33; /* #0F1F21  darker than the page */
-  --forest-soft: 29 50 53; /* #1D3235  cards */
-  --forest-lift: 41 64 63; /* #29403F  raised surfaces */
-  --sage-light: 163 181 155; /* #A3B59B  labels, links, focus ring */
-  --muted: 169 180 180; /* #A9B4B4  secondary text */
-  --faint: 140 152 151; /* #8C9897  least important text */
-}
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
 }
 
 ::selection {
-  background: rgb(var(--sage) / 0.6);
-  color: rgb(var(--ivory));
+  background: rgb(var(--t-primary) / 0.45);
+  color: rgb(var(--t-strong));
 }
 
 @layer components {
@@ -43,10 +26,10 @@ html {
     @apply animate-shimmer bg-clip-text text-transparent;
     background-image: linear-gradient(
       90deg,
-      rgb(var(--sage-light)),
-      rgb(var(--mist)),
-      rgb(var(--cream)),
-      rgb(var(--sage-light))
+      rgb(var(--t-primary-text)),
+      rgb(var(--t-secondary-text)),
+      rgb(var(--t-tertiary-text)),
+      rgb(var(--t-primary-text))
     );
     background-size: 200% auto;
   }
@@ -67,7 +50,7 @@ section[id] {
 }
 
 :focus-visible {
-  outline: 2px solid rgb(var(--sage-light));
+  outline: 2px solid rgb(var(--t-secondary-text));
   outline-offset: 3px;
 }
 
@@ -127,7 +110,7 @@ html.lenis body {
 }
 
 .tech-pill {
-  --brand: var(--white, var(--ivory));
+  --brand: var(--t-strong);
   display: inline-flex;
   flex-shrink: 0;
   align-items: center;
@@ -135,15 +118,15 @@ html.lenis body {
   margin-right: 0.875rem;
   padding: 0.4rem 1.25rem 0.4rem 0.4rem;
   border-radius: 9999px;
-  border: 1px solid rgb(var(--white, var(--ivory)) / 0.1);
+  border: 1px solid rgb(var(--t-strong) / 0.1);
   background: linear-gradient(
     180deg,
-    rgb(var(--white, var(--ivory)) / 0.08),
-    rgb(var(--white, var(--ivory)) / 0.02)
+    rgb(var(--t-strong) / 0.08),
+    rgb(var(--t-strong) / 0.02)
   );
   box-shadow:
-    inset 0 1px 0 rgb(var(--white, var(--ivory)) / 0.1),
-    0 2px 8px -4px rgb(0 0 0 / 0.5);
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    0 2px 8px -4px rgb(0 0 0 / var(--t-shadow-alpha));
   transition:
     transform 0.25s ease,
     border-color 0.25s ease,
@@ -154,7 +137,7 @@ html.lenis body {
   transform: translateY(-3px);
   border-color: rgb(var(--brand) / 0.55);
   box-shadow:
-    inset 0 1px 0 rgb(var(--white, var(--ivory)) / 0.14),
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
     0 10px 26px -10px rgb(var(--brand) / 0.7);
 }
 
@@ -180,22 +163,16 @@ html.lenis body {
 .tech-pill-icon svg {
   width: 1.2rem;
   height: 1.2rem;
-  fill: rgb(var(--brand));
+  /* logos go a little deeper on light themes so they stay clear on a pale page */
+  fill: color-mix(
+    in srgb,
+    rgb(var(--brand)) calc(100% - var(--t-logo-dark)),
+    black
+  );
 }
 
 .tech-pill-icon img {
   width: 1.2rem;
   height: 1.2rem;
   object-fit: contain;
-}
-
-/* light theme (used once the theme step is in): deeper logo colours and a lighter shadow */
-html[data-theme="light"] .tech-pill-icon svg {
-  fill: color-mix(in srgb, rgb(var(--brand)) 82%, black);
-}
-
-html[data-theme="light"] .tech-pill {
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.9),
-    0 2px 8px -4px rgb(15 17 26 / 0.18);
 }

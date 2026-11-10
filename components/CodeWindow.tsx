@@ -37,7 +37,7 @@ export function CodeWindow({ name, role, stack, focus }: CodeWindowProps) {
       className="relative hidden lg:block"
     >
       <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-tr from-accent-violet/30 via-accent-cyan/20 to-accent-pink/30 blur-3xl" />
-      <div className="glass relative animate-bob rounded-2xl shadow-2xl shadow-black/50">
+      <div className="glass relative animate-bob rounded-2xl shadow-2xl shadow-black/20">
         <div className="flex items-center gap-2 border-b border-white/10 px-5 py-3">
           <span className="h-3 w-3 rounded-full bg-red-400/80" />
           <span className="h-3 w-3 rounded-full bg-amber-400/80" />

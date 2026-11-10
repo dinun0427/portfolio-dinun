@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { profile } from "@/lib/data";
+import { ThemePicker } from "@/components/ThemePicker";
 
 const links = [
   { id: "about", label: "About" },
@@ -91,15 +92,18 @@ export function Navbar() {
           ))}
         </ul>
 
-        <button
-          type="button"
-          className="rounded-full border border-white/10 px-4 py-1.5 font-mono text-sm text-zinc-300 md:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen((o) => !o)}
-        >
-          {open ? "Close" : "Menu"}
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemePicker />
+          <button
+            type="button"
+            className="rounded-full border border-white/10 px-4 py-1.5 font-mono text-sm text-zinc-300 md:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((o) => !o)}
+          >
+            {open ? "Close" : "Menu"}
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>
