@@ -52,30 +52,23 @@ const config: Config = {
         ],
       },
       colors: {
-        // the page and its surfaces
-        ink: {
-          950: token("forest"),
-          900: token("forest-deep"),
-          800: token("forest-soft"),
-          700: token("forest-lift"),
-        },
-        // the accent colours used for labels, gradients and glows
+        ink: { 950: token("t-bg"), 800: token("t-surface") },
         accent: {
-          violet: token("sage"),
-          cyan: token("sage-light"),
-          pink: token("mist"),
+          violet: token("t-primary"),
+          cyan: token("t-secondary-text"),
+          pink: token("t-tertiary-text"),
         },
-        // existing class names (text-white, text-zinc-400...) now read the palette
-        white: token("ivory"),
+        white: token("t-strong"),
+        onprimary: token("t-on-primary"),
         zinc: {
-          200: token("cream"),
-          300: token("mist"),
-          400: token("muted"),
-          500: token("faint"),
+          200: token("t-soft"),
+          300: token("t-body"),
+          400: token("t-muted"),
+          500: token("t-faint"),
         },
-        violet: { 400: token("sage-light"), 600: token("sage") },
-        emerald: { 300: token("mist"), 400: token("sage-light") },
-        sky: { 300: token("cream") },
+        violet: { 400: token("t-primary-text"), 600: token("t-primary") },
+        emerald: { 300: token("t-tertiary-text") },
+        sky: { 300: token("t-secondary-text") },
       },
     },
   },
