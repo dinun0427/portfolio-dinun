@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { profile } from "@/lib/data";
@@ -36,6 +36,8 @@ export const metadata: Metadata = {
     description: profile.tagline,
   },
 };
+
+export const viewport: Viewport = { themeColor: "#162A2C" };
 
 export default function RootLayout({
   children,

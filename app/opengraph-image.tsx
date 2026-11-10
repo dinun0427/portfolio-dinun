@@ -15,11 +15,11 @@ export default function OpengraphImage() {
         flexDirection: "column",
         justifyContent: "center",
         padding: 80,
-        background: "linear-gradient(135deg, #05060a, #1a1d2b)",
-        color: "white",
+        background: "linear-gradient(135deg, #0F1F21, #162A2C)",
+        color: "#FEFCF6",
       }}
     >
-      <div style={{ display: "flex", fontSize: 28, color: "#22d3ee" }}>
+      <div style={{ display: "flex", fontSize: 28, color: "#A3B59B" }}>
         {profile.role}
       </div>
       <div
@@ -37,7 +37,7 @@ export default function OpengraphImage() {
           display: "flex",
           fontSize: 32,
           marginTop: 24,
-          color: "#a1a1aa",
+          color: "#A9B4B4",
         }}
       >
         {profile.tagline}

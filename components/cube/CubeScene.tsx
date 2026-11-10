@@ -63,7 +63,7 @@ const GEOMETRY = new RoundedBoxGeometry(
 );
 
 /** The dark plastic you only see inside the thin seams between pieces. */
-const INNER = new MeshStandardMaterial({ color: "#0e0e14", roughness: 0.9 });
+const INNER = new MeshStandardMaterial({ color: "#0c1a1c", roughness: 0.9 });
 
 const sideMaterials = new Map<string, MeshPhysicalMaterial>();
 /** Smooth, slightly glossy plastic, like a UV-coated stickerless cube. */
@@ -92,8 +92,8 @@ function getLogoTexture() {
   const ctx = canvas.getContext("2d");
   if (ctx) {
     const gradient = ctx.createLinearGradient(0, 0, size, size);
-    gradient.addColorStop(0, "#7c3aed");
-    gradient.addColorStop(1, "#06b6d4");
+    gradient.addColorStop(0, "#5E6C58");
+    gradient.addColorStop(1, "#162A2C");
     ctx.fillStyle = gradient;
     ctx.font = '900 140px "Arial Black", Arial, sans-serif';
     ctx.textAlign = "center";
@@ -625,10 +625,10 @@ export default function CubeScene({
       frameloop={!active ? "never" : reduce ? "demand" : "always"}
     >
       <ambientLight intensity={1.5} />
-      <hemisphereLight args={["#ffffff", "#4b4b66", 1.0]} />
+      <hemisphereLight args={["#ffffff", "#55645f", 1.0]} />
       <directionalLight position={[5, 8, 6]} intensity={1.8} />
-      <pointLight position={[-6, -3, -4]} intensity={30} color="#8b5cf6" />
-      <pointLight position={[6, 3, 4]} intensity={20} color="#22d3ee" />
+      <pointLight position={[-6, -3, -4]} intensity={30} color="#A3B59B" />
+      <pointLight position={[6, 3, 4]} intensity={20} color="#D6E0E2" />
       <Cube
         state={state}
         script={script}
