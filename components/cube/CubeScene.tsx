@@ -12,14 +12,20 @@ import {
   type RefObject,
 } from "react";
 import {
+  CanvasTexture,
+  Euler,
   Matrix4,
+  MeshPhysicalMaterial,
+  MeshStandardMaterial,
   Object3D,
   Quaternion,
   Raycaster,
+  SRGBColorSpace,
   Vector2,
   Vector3,
   type Group,
 } from "three";
+import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import type { Axis, Cubie, CubeState, Layer, Move } from "@/lib/cube";
 import {
   QUARTER,
@@ -29,7 +35,13 @@ import {
   quarterTurnsFor,
   type Script,
 } from "@/lib/cube-drag";
-import { CUBIE_SIZE, stickersFor } from "@/lib/cube-view";
+import {
+  CUBIE_RADIUS,
+  CUBIE_SIZE,
+  LOGO_TEXT,
+  hasLogo,
+  sideColours,
+} from "@/lib/cube-view";
 import { gsap } from "@/lib/gsap";
 
 const AXES: Axis[] = ["x", "y", "z"];
@@ -39,10 +51,73 @@ const AXIS_VECTORS: Record<Axis, Vector3> = {
   z: new Vector3(0, 0, 1),
 };
 
+// ---- the look: one rounded piece, a few shared materials, one logo ----
+
+/** Every piece shares this rounded box, so there is only one in memory. */
+const GEOMETRY = new RoundedBoxGeometry(
+  CUBIE_SIZE,
+  CUBIE_SIZE,
+  CUBIE_SIZE,
+  5,
+  CUBIE_RADIUS,
+);
+
+/** The dark plastic you only see inside the thin seams between pieces. */
+const INNER = new MeshStandardMaterial({ color: "#0e0e14", roughness: 0.9 });
+
+const sideMaterials = new Map<string, MeshPhysicalMaterial>();
+/** Smooth, slightly glossy plastic, like a UV-coated stickerless cube. */
+function sideMaterial(colour: string) {
+  let material = sideMaterials.get(colour);
+  if (!material) {
+    material = new MeshPhysicalMaterial({
+      color: colour,
+      roughness: 0.4,
+      clearcoat: 0.4,
+      clearcoatRoughness: 0.35,
+    });
+    sideMaterials.set(colour, material);
+  }
+  return material;
+}
+
+let logoTexture: CanvasTexture | null = null;
+/** The "DR" monogram, drawn once. Letters only, so the white shows through. */
+function getLogoTexture() {
+  if (logoTexture) return logoTexture;
+  const size = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+  if (ctx) {
+    const gradient = ctx.createLinearGradient(0, 0, size, size);
+    gradient.addColorStop(0, "#7c3aed");
+    gradient.addColorStop(1, "#06b6d4");
+    ctx.fillStyle = gradient;
+    ctx.font = '900 140px "Arial Black", Arial, sans-serif';
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(LOGO_TEXT, size / 2, size / 2 + 6);
+  }
+  logoTexture = new CanvasTexture(canvas);
+  logoTexture.colorSpace = SRGBColorSpace;
+  logoTexture.anisotropy = 8;
+  return logoTexture;
+}
+
+// ---- turning the whole cube: any direction, no limit ----
+
+const SPIN_STEP = new Quaternion();
+const SPIN_EULER = new Euler();
+/** Turn the view around the screen's vertical and horizontal axes. */
+function turnView(view: Quaternion, yaw: number, pitch: number) {
+  SPIN_STEP.setFromEuler(SPIN_EULER.set(pitch, yaw, 0));
+  view.premultiply(SPIN_STEP).normalize();
+}
+
 /** A layer that is part-way through turning. Angle is around the +axis. */
 type Turn = { axis: Axis; layer: Layer; angle: number };
-/** How the whole cube is rotated for the viewer. */
-type View = { yaw: number; pitch: number };
 
 type Drag = {
   pointerId: number;
@@ -67,8 +142,6 @@ type Drag = {
     pxPerUnit: number;
   };
 };
-
-const clampPitch = (pitch: number) => Math.max(-1.35, Math.min(1.35, pitch));
 
 function hasWebGL() {
   try {
@@ -117,7 +190,19 @@ function CubieMesh({
       ),
     );
   }, [cubie.orientation]);
-  const stickers = useMemo(() => stickersFor(cubie.home), [cubie.home]);
+
+  // one material per side of the box: its colour, or dark if it faces inwards
+  const materials = useMemo(
+    () =>
+      sideColours(cubie.home).map((colour) =>
+        colour ? sideMaterial(colour) : INNER,
+      ),
+    [cubie.home],
+  );
+  const logo = useMemo(
+    () => (hasLogo(cubie.home) ? getLogoTexture() : null),
+    [cubie.home],
+  );
 
   // while a layer is mid-turn, pieces in it are rotated on top of their place
   useFrame(() => {
@@ -147,16 +232,22 @@ function CubieMesh({
       position={[...cubie.position]}
       quaternion={baseRotation}
     >
-      <mesh>
-        <boxGeometry args={[CUBIE_SIZE, CUBIE_SIZE, CUBIE_SIZE]} />
-        <meshStandardMaterial color="#0b0b12" roughness={0.6} />
-      </mesh>
-      {stickers.map((s) => (
-        <mesh key={s.key} position={[...s.position]} rotation={[...s.rotation]}>
-          <planeGeometry args={[CUBIE_SIZE * 0.84, CUBIE_SIZE * 0.84]} />
-          <meshStandardMaterial color={s.colour} roughness={0.35} />
+      <mesh geometry={GEOMETRY} material={materials} />
+      {logo && (
+        // a flat plane just above the white centre, upright when seen from above
+        <mesh
+          position={[0, CUBIE_SIZE / 2 + 0.003, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        >
+          <planeGeometry args={[CUBIE_SIZE * 0.7, CUBIE_SIZE * 0.7]} />
+          <meshBasicMaterial
+            map={logo}
+            transparent
+            toneMapped={false}
+            depthWrite={false}
+          />
         </mesh>
-      ))}
+      )}
     </group>
   );
 }
@@ -176,7 +267,8 @@ function Cube({
 }) {
   const group = useRef<Group>(null);
   const turn = useRef<Turn | null>(null);
-  const view = useRef<View>({ yaw: -0.6, pitch: 0.45 });
+  // how the whole cube is rotated for the viewer (a quaternion: no tilt limit)
+  const view = useRef(new Quaternion().setFromEuler(new Euler(0.45, -0.6, 0)));
   const idle = useRef(true); // slow spin until the visitor first touches it
   const busy = useRef(false); // a layer is turning or snapping into place
   const pendingClear = useRef(false);
@@ -256,8 +348,9 @@ function Cube({
   }, [script, playNext]);
 
   useFrame((_, delta) => {
-    if (idle.current && !reduceRef.current) view.current.yaw += delta * 0.3;
-    group.current?.rotation.set(view.current.pitch, view.current.yaw, 0);
+    if (idle.current && !reduceRef.current)
+      turnView(view.current, delta * 0.3, 0);
+    group.current?.quaternion.copy(view.current);
     // carries on with the queue, and resumes it after a drag finishes
     if (!busy.current && queue.current.length > 0) playNext();
   });
@@ -267,6 +360,7 @@ function Cube({
     const raycaster = new Raycaster();
     const ndc = new Vector2();
     const currentView = view.current;
+    const spin = { f: 0 }; // 1 -> 0 while a flick coasts to a stop
     let drag: Drag | null = null;
 
     el.style.touchAction = "none"; // dragging the cube must not scroll the page
@@ -385,7 +479,7 @@ function Cube({
       if (kind === "layer" && busy.current) return; // wait for the snap
 
       idle.current = false;
-      gsap.killTweensOf(currentView);
+      gsap.killTweensOf(spin);
       el.setPointerCapture(e.pointerId);
       el.style.cursor = "grabbing";
       drag = {
@@ -412,12 +506,11 @@ function Cube({
       const dy = e.clientY - d.startY;
 
       if (d.kind === "orbit") {
-        const stepX = e.clientX - d.lastX;
-        const stepY = e.clientY - d.lastY;
-        currentView.yaw += stepX * 0.008;
-        currentView.pitch = clampPitch(currentView.pitch + stepY * 0.008);
-        d.vYaw = stepX * 0.008;
-        d.vPitch = stepY * 0.008;
+        const yaw = (e.clientX - d.lastX) * 0.01;
+        const pitch = (e.clientY - d.lastY) * 0.01;
+        turnView(currentView, yaw, pitch);
+        d.vYaw = yaw;
+        d.vPitch = pitch;
       } else {
         if (!d.lock) {
           if (Math.hypot(dx, dy) < 8) return; // not a drag yet
@@ -452,14 +545,17 @@ function Cube({
       el.style.cursor = "grab";
 
       if (d.kind === "orbit") {
-        // a flick keeps spinning and eases to a stop
+        // a flick keeps spinning, in any direction, and eases to a stop
         if (!reduceRef.current && e.timeStamp - d.lastTime < 80) {
-          gsap.to(currentView, {
-            yaw: currentView.yaw + d.vYaw * 18,
-            pitch: clampPitch(currentView.pitch + d.vPitch * 18),
+          spin.f = 1;
+          gsap.to(spin, {
+            f: 0,
             duration: 1.2,
             ease: "power3.out",
-            onUpdate: invalidate,
+            onUpdate: () => {
+              turnView(currentView, d.vYaw * spin.f, d.vPitch * spin.f);
+              invalidate();
+            },
           });
         }
         return;
@@ -476,7 +572,7 @@ function Cube({
       el.removeEventListener("pointermove", onMovePointer);
       el.removeEventListener("pointerup", onUp);
       el.removeEventListener("pointercancel", onUp);
-      gsap.killTweensOf(currentView);
+      gsap.killTweensOf(spin);
       if (turn.current) gsap.killTweensOf(turn.current);
     };
   }, [get, invalidate]);
@@ -523,12 +619,14 @@ export default function CubeScene({
 
   return (
     <Canvas
+      flat // no tone mapping, so the plastic colours stay true
       camera={{ position: [0, 0, 9.5], fov: 38 }}
       dpr={[1, 1.75]}
       frameloop={!active ? "never" : reduce ? "demand" : "always"}
     >
-      <ambientLight intensity={0.9} />
-      <directionalLight position={[5, 8, 6]} intensity={1.6} />
+      <ambientLight intensity={1.5} />
+      <hemisphereLight args={["#ffffff", "#4b4b66", 1.0]} />
+      <directionalLight position={[5, 8, 6]} intensity={1.8} />
       <pointLight position={[-6, -3, -4]} intensity={30} color="#8b5cf6" />
       <pointLight position={[6, 3, 4]} intensity={20} color="#22d3ee" />
       <Cube

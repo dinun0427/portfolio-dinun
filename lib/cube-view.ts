@@ -1,53 +1,39 @@
-import type { Axis, Vec } from "@/lib/cube";
+import type { Vec } from "@/lib/cube";
 
-/** Standard colours: white top, green front, red right, and their opposites. */
+/** Stickerless-style colours: white top, green front, red right. Tweak freely. */
 export const FACE_COLOURS: Record<string, string> = {
-  "x+": "#dc2626", // right  - red
-  "x-": "#f97316", // left   - orange
-  "y+": "#f4f4f5", // top    - white
-  "y-": "#facc15", // bottom - yellow
-  "z+": "#16a34a", // front  - green
-  "z-": "#2563eb", // back   - blue
+  "x+": "#d90f26", // right  - red
+  "x-": "#ff6a00", // left   - orange
+  "y+": "#f6f6f4", // top    - white
+  "y-": "#ffd400", // bottom - yellow
+  "z+": "#0aa84f", // front  - green
+  "z-": "#0a4fd6", // back   - blue
 };
 
-/** Edge length of one piece. Pieces sit 1 apart, so the rest is the gap. */
-export const CUBIE_SIZE = 0.94;
+/** The six sides of a piece, in the order a Three.js box numbers them. */
+export const SIDES = ["x+", "x-", "y+", "y-", "z+", "z-"] as const;
 
-const HALF_PI = Math.PI / 2;
+/** Edge length of one piece. Pieces sit 1 apart, so the rest is the seam. */
+export const CUBIE_SIZE = 0.98;
+/** How rounded the pieces are. 0 would be sharp corners. */
+export const CUBIE_RADIUS = 0.08;
 
-/** A flat plane faces +z by default; these turn it to face each side. */
-const STICKER_ROTATIONS: Record<string, Vec> = {
-  "x+": [0, HALF_PI, 0],
-  "x-": [0, -HALF_PI, 0],
-  "y+": [-HALF_PI, 0, 0],
-  "y-": [HALF_PI, 0, 0],
-  "z+": [0, 0, 0],
-  "z-": [0, Math.PI, 0],
-};
+/** The monogram on the middle square of the white face. */
+export const LOGO_TEXT = "DR";
 
-export type Sticker = {
-  key: string;
-  colour: string;
-  position: Vec;
-  rotation: Vec;
-};
-
-const AXES: readonly Axis[] = ["x", "y", "z"];
-
-/** The coloured stickers of one piece, from where it started: corner 3, edge 2, face centre 1, core 0. */
-export function stickersFor(home: Vec): Sticker[] {
-  const stickers: Sticker[] = [];
-  home.forEach((side, i) => {
-    if (side === 0) return;
-    const key = `${AXES[i]}${side > 0 ? "+" : "-"}`;
-    const position: [number, number, number] = [0, 0, 0];
-    position[i] = side * (CUBIE_SIZE / 2 + 0.002); // just off the surface
-    stickers.push({
-      key,
-      colour: FACE_COLOURS[key],
-      position,
-      rotation: STICKER_ROTATIONS[key],
-    });
+/**
+ * The colour of each side of a piece, or null for a side that faces the
+ * inside of the cube. Corner: 3 colours, edge: 2, face centre: 1, core: 0.
+ */
+export function sideColours(home: Vec): (string | null)[] {
+  return SIDES.map((key, i) => {
+    const axis = i >> 1; // sides 0-1 are x, 2-3 are y, 4-5 are z
+    const side = i % 2 === 0 ? 1 : -1;
+    return home[axis] === side ? FACE_COLOURS[key] : null;
   });
-  return stickers;
+}
+
+/** Only the centre of the top (white) face carries the logo. */
+export function hasLogo(home: Vec): boolean {
+  return home[0] === 0 && home[1] === 1 && home[2] === 0;
 }
