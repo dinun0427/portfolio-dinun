@@ -48,7 +48,7 @@ export function Magnetic({
       ref={area}
       onPointerMove={onMove}
       onPointerLeave={reset}
-      className={`p-3 ${className}`}
+      className={`group/mag p-3 ${className}`}
     >
       <motion.div style={{ x: springX, y: springY }}>{children}</motion.div>
     </div>

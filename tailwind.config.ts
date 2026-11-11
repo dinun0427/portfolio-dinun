@@ -12,6 +12,11 @@ const config: Config = {
   theme: {
     extend: {
       keyframes: {
+        themeCycle: {
+          "0%, 100%": { color: "rgb(var(--t-primary-text))" },
+          "33%": { color: "rgb(var(--t-secondary-text))" },
+          "66%": { color: "rgb(var(--t-tertiary-text))" },
+        },
         blink: { "0%, 50%": { opacity: "1" }, "51%, 100%": { opacity: "0" } },
         shimmer: {
           "0%": { backgroundPosition: "0% 50%" },
@@ -36,6 +41,7 @@ const config: Config = {
         pulseRing: "pulseRing 1.8s ease-out infinite",
         float: "float 18s ease-in-out infinite",
         bob: "bob 6s ease-in-out infinite",
+        themeCycle: "themeCycle 1.6s linear infinite",
       },
       fontFamily: {
         sans: [

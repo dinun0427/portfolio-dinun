@@ -11,6 +11,7 @@ import {
 } from "react";
 import { saveTheme, showTheme, useSavedTheme } from "@/lib/theme-client";
 import { themeMode, themes, type Theme } from "@/lib/themes";
+import { Magnetic } from "@/components/Magnetic";
 
 function PaletteIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -158,18 +159,20 @@ export function ThemePicker() {
 
   return (
     <div ref={wrapper} className="relative">
-      <button
-        ref={trigger}
-        type="button"
-        aria-label="Change theme"
-        aria-haspopup="dialog"
-        aria-expanded={open}
-        aria-controls={open ? panelId : undefined}
-        onClick={() => (open ? close(true) : setOpen(true))}
-        className="grid h-9 w-9 place-items-center rounded-full border border-white/10 text-zinc-300 transition hover:border-accent-cyan hover:text-white"
-      >
-        <PaletteIcon className="h-[18px] w-[18px]" />
-      </button>
+      <Magnetic className="-m-3">
+        <button
+          ref={trigger}
+          type="button"
+          aria-label="Change theme"
+          aria-haspopup="dialog"
+          aria-expanded={open}
+          aria-controls={open ? panelId : undefined}
+          onClick={() => (open ? close(true) : setOpen(true))}
+          className="grid h-9 w-9 place-items-center rounded-full border border-white/10 text-zinc-300 transition-colors group-hover/mag:animate-themeCycle group-hover/mag:border-current"
+        >
+          <PaletteIcon className="h-[18px] w-[18px] transition-transform duration-300 group-hover/mag:rotate-[18deg] group-hover/mag:scale-110" />
+        </button>
+      </Magnetic>
 
       {open && (
         <div
