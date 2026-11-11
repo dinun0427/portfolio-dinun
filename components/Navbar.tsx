@@ -2,8 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { profile } from "@/lib/data";
 import { ThemePicker } from "@/components/ThemePicker";
+import { Logo } from "@/components/Logo";
 
 const links = [
   { id: "about", label: "About" },
@@ -69,10 +69,7 @@ export function Navbar() {
         aria-label="Main"
         className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6"
       >
-        <a href="#" className="font-mono font-semibold text-white">
-          {profile.initials}
-          <span className="text-violet-400">.</span>
-        </a>
+        <Logo />
 
         <ul className="hidden gap-1 md:flex">
           {links.map((link) => (
