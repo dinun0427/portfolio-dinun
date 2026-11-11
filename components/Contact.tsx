@@ -11,7 +11,7 @@ export function Contact() {
           <p className="font-mono text-sm uppercase tracking-widest text-accent-cyan">
             Contact
           </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-onprimary sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
             Let&apos;s work together
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-zinc-400">
