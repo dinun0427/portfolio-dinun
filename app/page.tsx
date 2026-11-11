@@ -14,6 +14,7 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { TechMarquee } from "@/components/TechMarquee";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CubeSection } from "@/components/cube/CubeSection";
+import { SocialRail } from "@/components/SocialRail";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -45,6 +46,7 @@ export default function Home() {
       />
       <Background />
       <Navbar />
+      <SocialRail />
       <main id="main" className="relative z-10">
         <Hero />
         <TechMarquee />
