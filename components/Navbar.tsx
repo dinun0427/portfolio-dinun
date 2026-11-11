@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ThemePicker } from "@/components/ThemePicker";
 import { Logo } from "@/components/Logo";
+import { NavLinks } from "@/components/NavLinks";
 
 const links = [
   { id: "about", label: "About" },
@@ -71,23 +72,7 @@ export function Navbar() {
       >
         <Logo />
 
-        <ul className="hidden gap-1 md:flex">
-          {links.map((link) => (
-            <li key={link.id}>
-              <a
-                href={`#${link.id}`}
-                aria-current={active === link.id ? "true" : undefined}
-                className={`rounded-full px-3 py-1.5 text-sm transition-colors ${
-                  active === link.id
-                    ? "bg-white/10 text-white"
-                    : "text-zinc-400 hover:text-white"
-                }`}
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <NavLinks links={links} active={active} />
 
         <div className="flex items-center gap-2">
           <ThemePicker />
