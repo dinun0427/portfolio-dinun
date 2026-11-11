@@ -2,15 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { profile, socials } from "@/lib/data";
+import { profile } from "@/lib/data";
 import { CodeWindow } from "./CodeWindow";
-import {
-  ArrowDownIcon,
-  ArrowUpRightIcon,
-  MapPinIcon,
-  SocialIcon,
-  DownloadIcon,
-} from "./Icons";
+import { ArrowDownIcon, ArrowUpRightIcon } from "./Icons";
 
 function useTypewriter(words: string[], speed = 70, pause = 1600) {
   const [index, setIndex] = useState(0);
@@ -116,44 +110,6 @@ export function Hero() {
               View my work
               <ArrowUpRightIcon className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
-            <a
-              href="#contact"
-              className="glass inline-flex items-center rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10"
-            >
-              Contact me
-            </a>
-            <a
-              href="/Dinun-Ranasinghe-CV.pdf"
-              download
-              className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10"
-            >
-              <DownloadIcon className="h-4 w-4" />
-              CV
-            </a>
-          </motion.div>
-
-          <motion.div
-            variants={item}
-            className="mt-10 flex flex-wrap items-center gap-5"
-          >
-            <div className="flex gap-2">
-              {socials.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target={social.icon === "mail" ? undefined : "_blank"}
-                  rel="noreferrer"
-                  aria-label={social.label}
-                  className="glass flex h-11 w-11 items-center justify-center rounded-full text-zinc-400 transition hover:-translate-y-1 hover:border-accent-violet/50 hover:text-white"
-                >
-                  <SocialIcon name={social.icon} className="h-5 w-5" />
-                </a>
-              ))}
-            </div>
-            <span className="flex items-center gap-1.5 text-sm text-zinc-400">
-              <MapPinIcon className="h-4 w-4" />
-              {profile.location}
-            </span>
           </motion.div>
         </motion.div>
 
